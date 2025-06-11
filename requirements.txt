@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+seleniumbase
+pyautogui
+pytesseract
+pillow
+python-dotenv
+google-generativeai
