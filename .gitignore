@@ -1,6 +1,35 @@
+# Entorno virtual
 venv/
+env/
+
+# Archivos temporales de Python
 __pycache__/
-*.pyc
+*.py[cod]
+*.so
+
+# Archivos de log
 *.log
-.env
+
+# Archivos temporales del sistema
 *.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Archivos de configuración privados
+.env
+
+# Paquetes descargados o binarios grandes
+*.deb
+*.tar
+*.tar.gz
+*.zip
+*.egg
+*.whl
+
+# Carpeta de VSCode (opcional)
+.vscode/
+
+# Archivos del navegador o Puppeteer/Playwright
+chromium/
+.google-chrome/
