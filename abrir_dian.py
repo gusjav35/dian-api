@@ -49,20 +49,14 @@ def main(nit: str):
         razon_social = driver.find_element(By.ID, "vistaConsultaEstadoRUT:formConsultaEstadoRUT:razonSocial").text.strip()
         estado = driver.find_element(By.ID, "vistaConsultaEstadoRUT:formConsultaEstadoRUT:estado").text.strip()
 
-        # 🟡 Extracción robusta de la fecha con JavaScript
-        fecha = driver.execute_script("""
-            return [...document.querySelectorAll("td.fondoTituloLeftAjustado")]
-                .find(td => td.textContent.trim() === "Fecha Actual")
-                ?.nextElementSibling?.textContent.trim();
-        """)
+        # Usar la hora actual como fecha
+        fecha = time.strftime("%Y-%m-%d %H:%M:%S")
 
-        timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
         data = {
             "NIT": nit,
             "razon_social": razon_social.replace("S.A.S.", "SAS"),
-            "fecha": fecha.replace(" ", "").replace(":", "") if fecha else "No encontrada",
-            "estado": estado,
-            "timestamp": timestamp
+            "fecha": fecha,
+            "estado": estado
         }
 
         with open("resultado_dian.json", "w", encoding="utf-8") as f:
@@ -81,10 +75,9 @@ def main(nit: str):
             json.dump({
                 "NIT": nit,
                 "razon_social": "Error",
-                "fecha": "Error",
+                "fecha": time.strftime("%Y-%m-%d %H:%M:%S").replace(" ", "").replace(":", ""),
                 "estado": "Error",
-                "error": str(e),
-                "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")
+                "error": str(e)
             }, f, ensure_ascii=False, indent=2)
         raise e
 
