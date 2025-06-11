@@ -2,7 +2,7 @@ fastapi
 uvicorn
 seleniumbase
 pyautogui
-pytesseract
-pillow
+pytesseract>=0.3.10
+Pillow
 python-dotenv
 google-generativeai

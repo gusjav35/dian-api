@@ -1,6 +1,7 @@
 # Entorno virtual
 venv/
 env/
+downloaded_files/
 
 # Archivos temporales de Python
 __pycache__/
