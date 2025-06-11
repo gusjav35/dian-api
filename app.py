@@ -19,7 +19,8 @@ async def consultar(request: Request, nit: str = Query(...)):
     if os.path.exists("resultado_dian.json"):
         os.remove("resultado_dian.json")
 
-    await abrir_dian.main(nit)
+    # ✅ quitar await porque main() no es async
+    abrir_dian.main(nit)
 
     try:
         with open("resultado_dian.json", "r", encoding="utf-8") as f:
