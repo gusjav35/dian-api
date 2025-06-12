@@ -44,7 +44,7 @@ def intentar_consulta(nit: str):
         print("✅ NIT enviado")
 
         try:
-            driver.wait_for_element("#vistaConsultaEstadoRUT\\:formConsultaEstadoRUT\\:razonSocial", timeout=15)
+            driver.wait_for_element("#vistaConsultaEstadoRUT\\:formConsultaEstadoRUT\\:razonSocial", timeout=18)
             print("✅ Se cargó la página con respuesta")
 
         except Exception:
