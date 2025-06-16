@@ -34,7 +34,7 @@ def intentar_consulta(nit: str):
         boton = driver.find_element(By.ID, "vistaConsultaEstadoRUT:formConsultaEstadoRUT:btnBuscar")
         location = boton.location
 
-        x = location["x"] + 48
+        x = location["x"] + 55
         y = location["y"] + 60
 
         pyautogui.moveTo(x, y, duration=1)
