@@ -34,8 +34,8 @@ def intentar_consulta(nit: str):
         boton = driver.find_element(By.ID, "vistaConsultaEstadoRUT:formConsultaEstadoRUT:btnBuscar")
         location = boton.location
 
-        x = location["x"] + 40
-        y = location["y"] + 80
+        x = location["x"] + 48
+        y = location["y"] + 60
 
         pyautogui.moveTo(x, y, duration=1)
         pyautogui.click()
@@ -48,7 +48,7 @@ def intentar_consulta(nit: str):
         print("🔍 Se hizo clic en Buscar")
 
         try:
-            driver.wait_for_element("#vistaConsultaEstadoRUT\\:formConsultaEstadoRUT\\:razonSocial", timeout=18)
+            driver.wait_for_element("#vistaConsultaEstadoRUT\\:formConsultaEstadoRUT\\:razonSocial", timeout=14)
             print("✅ Se cargó la página con respuesta")
 
         except Exception:
