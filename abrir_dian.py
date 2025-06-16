@@ -34,10 +34,10 @@ def intentar_consulta(nit: str):
         boton = driver.find_element(By.ID, "vistaConsultaEstadoRUT:formConsultaEstadoRUT:btnBuscar")
         location = boton.location
 
-        x = location["x"] + 62
-        y = location["y"] + 60
+        x = location["x"] + 37
+        y = location["y"] + 75
 
-        pyautogui.moveTo(x, y, duration=1)
+        pyautogui.moveTo(x, y, duration=0.5)
         pyautogui.click()
         print(f"✅ Clic en checkbox estimado en x={x}, y={y}")
 
