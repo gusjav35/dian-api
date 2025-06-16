@@ -37,7 +37,7 @@ def intentar_consulta(nit: str):
         x = location["x"] + 40
         y = location["y"] + 80
 
-        pyautogui.moveTo(x, y, duration=0.4)
+        pyautogui.moveTo(x, y, duration=1)
         pyautogui.click()
         print(f"✅ Clic en checkbox estimado en x={x}, y={y}")
 
