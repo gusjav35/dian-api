@@ -14,41 +14,44 @@ def intentar_consulta(nit: str):
         driver = Driver(
             uc=True,
             headless=False,
-            #user_data_dir="/home/gustavo/.config/google-chrome/Default"
             user_data_dir="/home/ubuntu/.config/chrome-temp-persistente"
-            #user_data_dir=None
         )
 
         driver.uc_open_with_reconnect("https://muisca.dian.gov.co/WebRutMuisca/DefConsultaEstadoRUT.faces", 4)
+
+        # 🧾 Completar el campo del NIT
+        campo_nit = driver.find_element(By.ID, "vistaConsultaEstadoRUT:formConsultaEstadoRUT:numNit")
+        campo_nit.click()
+        time.sleep(0.3)
+        campo_nit.clear()
+        time.sleep(0.2)
+        campo_nit.send_keys(nit)
+        print("✅ NIT escrito")
+
+        time.sleep(1.2)  # Espera antes del clic en el captcha
 
         print("🧠 Calculando posición del checkbox en base al botón 'Buscar'...")
         boton = driver.find_element(By.ID, "vistaConsultaEstadoRUT:formConsultaEstadoRUT:btnBuscar")
         location = boton.location
 
-        #x = location["x"] + 100
-        #y = location["y"] + 120
         x = location["x"] + 40
         y = location["y"] + 80
 
-        time.sleep(1)
-        pyautogui.moveTo(x, y, duration=0.5)  # ⬅️ Movimiento rápido
+        pyautogui.moveTo(x, y, duration=0.4)
         pyautogui.click()
         print(f"✅ Clic en checkbox estimado en x={x}, y={y}")
 
-        time.sleep(1)
+        time.sleep(1.2)  # Espera a que el captcha reaccione
 
-        campo_nit = driver.find_element(By.ID, "vistaConsultaEstadoRUT:formConsultaEstadoRUT:numNit")
-        campo_nit.clear()
-        campo_nit.send_keys(nit)
-        campo_nit.send_keys(Keys.RETURN)
-        print("✅ NIT enviado")
+        # 🔍 Hacer clic en el botón "Buscar"
+        boton.click()
+        print("🔍 Se hizo clic en Buscar")
 
         try:
             driver.wait_for_element("#vistaConsultaEstadoRUT\\:formConsultaEstadoRUT\\:razonSocial", timeout=18)
             print("✅ Se cargó la página con respuesta")
 
         except Exception:
-            # Buscar si se muestra el mensaje "No está inscrito en el RUT"
             if "No está inscrito en el RUT" in driver.get_page_source():
                 print("ℹ️ El NIT no está inscrito en el RUT")
                 guardar_resultado({
@@ -61,7 +64,6 @@ def intentar_consulta(nit: str):
             else:
                 raise TimeoutError("⏰ Resultado no cargado")
 
-        # Si llegó aquí, se cargaron los datos correctamente
         resultado_img = "resultado_dian.png"
         driver.save_screenshot(resultado_img)
 
